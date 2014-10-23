@@ -15,7 +15,6 @@
 #-----------------------------------
 
 # SQL for processing times
-# select id, rubicon_receipt_id, sent_for_processing_datetime as sent, received_from_processing_datetime as received, time_to_sec(timediff (received_from_processing_datetime, sent_for_processing_datetime)) / 60 as minutes, time_to_sec(timediff (received_from_processing_datetime, sent_for_processing_datetime)) / 60 / 60 as hours, time_to_sec(timediff (received_from_processing_datetime, sent_for_processing_datetime)) / 60 /60 /24 as days from expense where date(sent_for_processing_datetime) >= '2014-07-14' and date(sent_for_processing_datetime) <= '2014-07-20' order by time_to_sec(timediff (received_from_processing_datetime, sent_for_processing_datetime)) / 60 desc;
 
 #-----------------------------------
 
