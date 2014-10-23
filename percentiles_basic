@@ -1,0 +1,37 @@
+# This is my first script for calculating 95th percentile from a dataset.
+
+# If using a .txt file on a Mac, you can use TextEdit, go to preferences, and change
+# default save to .txt, rather than .rtf.
+
+#-----------------------------------
+
+# USER ACTION
+# Change the string in the text to match the directory where your files are located.
+        directory_name = "/Users/danielt/Documents/ExpenseIt/Project_Percentile_Script/"
+        
+# Set the working directory         
+        setwd(directory_name)
+
+#-----------------------------------
+
+# SQL for processing times
+# select id, rubicon_receipt_id, sent_for_processing_datetime as sent, received_from_processing_datetime as received, time_to_sec(timediff (received_from_processing_datetime, sent_for_processing_datetime)) / 60 as minutes, time_to_sec(timediff (received_from_processing_datetime, sent_for_processing_datetime)) / 60 / 60 as hours, time_to_sec(timediff (received_from_processing_datetime, sent_for_processing_datetime)) / 60 /60 /24 as days from expense where date(sent_for_processing_datetime) >= '2014-07-14' and date(sent_for_processing_datetime) <= '2014-07-20' order by time_to_sec(timediff (received_from_processing_datetime, sent_for_processing_datetime)) / 60 desc;
+
+#-----------------------------------
+
+# USER ACTION
+# Provide the name of the table with the extension
+        filename = "longprocessing.txt"
+
+# Read the file
+        data = read.table(filename, header = TRUE, sep = "|")
+        attach(data)
+
+# Extract the processing times in minutes
+        minutes_vector = data$minutes
+
+#-----------------------------------        
+
+# Calculate the percentiles using the quantile function
+        percentiles = quantile(minutes_vector, c(.8, .9, .95, .99, 1))
+        print(percentiles)
